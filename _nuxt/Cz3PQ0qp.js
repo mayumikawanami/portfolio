@@ -1,0 +1,1 @@
+import{y as e,z as o,C as n,_}from"./DTQCu-Bc.js";import{_ as c}from"./DlAUqK2U.js";const s={},a={class:"font-sans font-light"};function r(f,m){const t=_;return o(),e("div",a,[n(t)])}const l=c(s,[["render",r]]);export{l as default};
