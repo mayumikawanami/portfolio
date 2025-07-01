@@ -1,0 +1,9 @@
+/* グローバルフォント設定 */
+* {
+  font-family: "Raleway", "mplus-1p-regular", sans-serif;
+}
+
+html,
+body {
+  font-family: "Raleway", "mplus-1p-regular", sans-serif;
+}
