@@ -1,1 +1,0 @@
-import{_ as e,y as n,z as o,C as c,Q as s}from"./kLHrXpEl.js";const _={},a={class:"font-sans font-light"};function r(f,d){const t=s;return o(),n("div",a,[c(t)])}const i=e(_,[["render",r]]);export{i as default};
