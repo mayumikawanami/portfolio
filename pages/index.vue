@@ -43,7 +43,7 @@
       class="bg-[repeating-linear-gradient(135deg,_#f3f4f6_0px,_#f3f4f6_10px,_#e0e7ef_10px,_#e0e7ef_20px)] min-h-screen flex items-center justify-center"
     >
       <div class="text-center max-w-5xl mx-auto px-6">
-        <h1 class="text-8xl font-bold text-gray-900 mb-6 tracking-tight">
+        <h1 class="text-6xl font-bold text-gray-900 mb-6 tracking-tight">
           Kawanami Mayumi's portfolio
         </h1>
         <p class="text-xl text-gray-600 mb-8 leading-relaxed">
@@ -82,9 +82,9 @@
           <div class="w-24 h-1 bg-gray-900 mx-auto"></div>
         </div>
         <div class="grid md:grid-cols-1 gap-16 items-start">
-          <!-- About（自己紹介） -->
+
           <div>
-            <h3 class="text-2xl font-semibold text-gray-900 mb-6 text-center">
+            <h3 class="text-xl font-semibold text-gray-900 mb-6 text-center">
               自己紹介
             </h3>
             <div class="text-xl font-light">
@@ -106,7 +106,6 @@
       </div>
     </section>
 
-    <!-- Works セクション -->
     <section id="works" class="py-24 bg-gray-50">
       <div class="max-w-6xl mx-auto px-6">
         <div class="text-center mb-16">
@@ -118,14 +117,15 @@
             <div
               v-for="(work, i) in works"
               :key="work.title"
-              class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-col items-center"
-              @click="openModal(i)"
+              class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-all duration-300 flex flex-col items-center"
             >
               <div
                 class="h-48 w-full flex items-center justify-center mb-6 overflow-hidden rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100"
               >
                 <img
-                  :src="work.mainImg?.[0] || ''"
+                  :src="
+                    getImagePath(work.mainImg?.[0] || work.images?.[0] || '')
+                  "
                   class="object-cover h-full w-full"
                   alt="work image"
                 />
@@ -134,7 +134,11 @@
                 {{ work.title }}
               </h4>
               <button
-                class="px-6 py-2 bg-gradient-to-r from-indigo-400 to-blue-500 text-white rounded-full shadow hover:scale-105 transition font-semibold flex items-center gap-2"
+                onmouseover="this.style.backgroundColor='rgb(102, 180, 164)'"
+                onmouseout="this.style.backgroundColor='rgb(121, 198, 182)'"
+                style="background-color: rgb(121, 198, 182)"
+                class="px-6 py-2 text-white rounded-full shadow transition font-semibold flex items-center gap-2 cursor-pointer"
+                @click="openModal(i)"
               >
                 <svg
                   class="w-5 h-5"
@@ -185,7 +189,6 @@
             </svg>
           </button>
           <div class="md:flex gap-8">
-            <!-- 左カラム：テキスト -->
             <div class="md:w-2/5 mb-8 md:mb-0">
               <h4 class="text-2xl font-bold mb-4 text-center">
                 {{ modalWork.title }}
@@ -251,15 +254,13 @@
                 <img
                   v-for="img in modalWork.images"
                   :key="img"
-                  :src="img"
+                  :src="getImagePath(img)"
                   class="w-20 h-14 object-cover rounded shadow cursor-pointer border-2 border-transparent hover:border-blue-400 transition"
-                  @click="mainImage = img"
+                  @click="mainImage = getImagePath(img)"
                 />
               </div>
               <div class="rounded-lg overflow-hidden shadow-lg">
-                <!-- <a v-if="mainImage" :href="modalWork.demo" target="_blank"> -->
                 <img :src="mainImage" class="w-full object-cover" />
-                <!-- </a> -->
               </div>
             </div>
           </div>
@@ -267,139 +268,327 @@
       </div>
     </section>
 
-    <!-- Skills セクション -->
     <section id="skills" class="py-24 bg-white">
       <div class="max-w-4xl mx-auto px-6">
         <div class="text-center mb-16">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Skills</h2>
           <div class="w-24 h-1 bg-gray-900 mx-auto"></div>
         </div>
-
+        <p class="text-gray-600 mb-10 text-xl font-light leading-loose">
+          各スキルは、個人開発や小規模プロジェクトでの活用経験があります。
+          基本的な実装や修正対応が可能で、今後は実務経験を通じて応用力をさらに高めていきたいと考えています。
+        </p>
         <div class="grid md:grid-cols-1 gap-16 items-center">
           <div>
-            <div class="space-y-4">
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">HTML / CSS</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+            <div class="space-y-8">
+
+              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
+                <h3 class="text-xl text-gray-800 mb-2 text-center">
+                  フロントエンド
+                </h3>
+                <div class="space-y-4">
+                  <!-- HTML / CSS -->
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">HTML / CSS</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Tailwind CSS</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">JavaScript</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">TypeScript</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <!-- Nuxt -->
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Nuxt</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">JavaScript</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+
+
+              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
+                <h3 class="text-xl text-gray-800 mb-2 text-center">
+                  バックエンド
+                </h3>
+                <div class="space-y-4">
+                  <!-- PHP -->
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">PHP</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Laravel</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Firebase</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Google Apps Script (GAS)</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">TypeScript</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+
+              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
+                <h3 class="text-xl text-gray-800 mb-2 text-center">
+                  インフラ・データベース
+                </h3>
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Docker</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">AWS（EC2/S3/RDSなど）</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">MySQL / DynamoDB</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">Laravel</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">Nuxt</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">Tailwind CSS</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">Firebase</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">Google Apps Script (GAS)</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">Docker</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">AWS（EC2/S3など）</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">MySQL / DynamoDB</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
-                </div>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-gray-700">Git / GitHub</span>
-                <div class="flex space-x-1">
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-900 rounded-sm"></div>
-                  <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+
+              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
+                <h3 class="text-xl text-gray-800 mb-2 text-center">
+                  開発ツール
+                </h3>
+                <div class="flex justify-between items-center">
+                  <span class="text-gray-700">Git / GitHub</span>
+                  <div class="flex space-x-1">
+                    <div
+                      class="w-4 h-4 rounded-sm"
+                      style="background-color: rgb(121, 198, 182)"
+                    ></div>
+                    <div
+                      class="w-4 h-4 rounded-sm"
+                      style="background-color: rgb(121, 198, 182)"
+                    ></div>
+                    <div
+                      class="w-4 h-4 rounded-sm"
+                      style="background-color: rgb(121, 198, 182)"
+                    ></div>
+                    <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div class="my-10">
+          <ul class="space-y-3 text-gray-700 font-light">
+            <li class="flex items-start space-x-3">
+              <div class="flex space-x-1 mt-1">
+                <div
+                  class="w-4 h-4 rounded-sm"
+                  style="background-color: rgb(121, 198, 182)"
+                ></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+              </div>
+              <p>
+                基本的な使用方法を理解しており、簡単なコードの実装や修正ができる。
+              </p>
+            </li>
+            <li class="flex items-start space-x-3">
+              <div class="flex space-x-1 mt-1">
+                <div
+                  class="w-4 h-4 rounded-sm"
+                  style="background-color: rgb(121, 198, 182)"
+                ></div>
+                <div
+                  class="w-4 h-4 rounded-sm"
+                  style="background-color: rgb(121, 198, 182)"
+                ></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+              </div>
+              <p>
+                実務や個人開発で複数回使用経験があり、実装対応は可能だが、さらなる習熟を進めている。
+              </p>
+            </li>
+            <li class="flex items-start space-x-3">
+              <div class="flex space-x-1 mt-1">
+                <div
+                  class="w-4 h-4 rounded-sm"
+                  style="background-color: rgb(121, 198, 182)"
+                ></div>
+                <div
+                  class="w-4 h-4 rounded-sm"
+                  style="background-color: rgb(121, 198, 182)"
+                ></div>
+                <div
+                  class="w-4 h-4 rounded-sm"
+                  style="background-color: rgb(121, 198, 182)"
+                ></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+              </div>
+              <p>
+                実務レベルで自由に使いこなせ、要件に応じて設計・最適化ができる。
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
@@ -476,6 +665,8 @@
 <script setup>
 import { ref, computed } from "vue";
 
+const config = useRuntimeConfig();
+const baseURL = config.public.app.baseURL;
 const works = [
   {
     title: "ポートフォリオサイト",
@@ -488,9 +679,7 @@ const works = [
     techs: "Nuxt 3, Tailwind CSS, TypeScript, GitHub",
     demo: "https://your-portfolio.vercel.app",
     github: "https://github.com/yourname/portfolio",
-    images: [
-      "/images/portfolio1.png",
-    ],
+    images: ["/images/portfolio1.png"],
   },
   {
     title: "食事診断ツール",
@@ -505,8 +694,8 @@ const works = [
       "- Firebase Firestore へのログ保存\n" +
       "- レスポンシブ対応の UI 設計\n" +
       "- 要件整理から納品まで一貫対応、仕様書とマニュアルも作成\n",
-    tags: ["Nuxt.js", "GAS", "Firebase", "GitHub"],
-    techs: "Nuxt.js, GAS, Firebase, GitHub",
+    tags: ["Nuxt.js","JavaScript", "GAS", "Firebase", "GitHub"],
+    techs: "Nuxt.js, JavaScript,GAS, Firebase, GitHub",
     demo: "https://nutrition-check.online/DietarySurveyPlusTestTest",
     github: "",
     images: [
@@ -523,8 +712,8 @@ const works = [
       "LaravelとMySQLを用いて、飲食店の検索〜予約〜口コミ投稿までを一括で管理できるアプリを個人開発しました。\n\n" +
       "ユーザー・店舗・管理者の3権限に対応し、それぞれの立場に応じた画面・機能を実装しています。予約登録・QRコード確認・口コミ投稿・CSVインポート・決済処理など、実用性を意識した設計に取り組みました。\n\n" +
       "Docker上で環境構築を行い、AWS（EC2/S3）を利用して本番デプロイも経験。Laravelの認証・リレーション・Bladeテンプレートの活用を通じて、Webアプリ開発の全体像を実践的に学びました。",
-    tags: ["Laravel", "MySQL", "Docker", "AWS", "GitHub"],
-    techs: "Laravel, MySQL, Docker, AWS, GitHub",
+    tags: ["PHP","Laravel", "MySQL", "Docker", "AWS", "GitHub"],
+    techs: "PHP,Laravel, MySQL, Docker, AWS, GitHub",
     demo: "https://mayumi-k.main.jp/restaurant/",
     github: "",
     images: [
@@ -544,8 +733,8 @@ const works = [
       "LaravelとMySQLを用いて、勤務開始・終了や休憩時間を記録・集計できる勤怠管理アプリを個人開発しました。\n\n" +
       "会員登録・ログイン・メール認証を備えたユーザー認証機能や、勤怠データの一覧表示・ページネーションにも対応しています。\n\n" +
       "Dockerを使って開発環境を構築し、保守性を意識したMVC設計やバリデーションの実装など、業務向けWebアプリ開発の基本を習得しました。",
-    tags: ["Laravel", "MySQL", "Docker", "GitHub"],
-    techs: "Laravel, MySQL, Docker, GitHub",
+    tags: ["PHP","Laravel", "MySQL", "Docker", "GitHub"],
+    techs: "PHP,Laravel, MySQL, Docker, GitHub",
     demo: "https://mayumi-k.main.jp/kintai/",
     github: "",
     images: [
@@ -571,10 +760,10 @@ const works = [
       "GitHub",
     ],
     techs:
-      "Nuxt.js, Laravel, Tailwind CSS, TypeScript, DynamoDB, Docker, GitHub",
+      "Nuxt.js, Laravel, PHP,Tailwind CSS, TypeScript, DynamoDB, Docker, GitHub",
     demo: "",
     github: "",
-    images: ["/img/instabot1.png", "/img/instabot2.png"],
+    images: [],
   },
   {
     title: "マーケティング管理システム",
@@ -585,7 +774,7 @@ const works = [
     techs: "Laravel, MySQL, Docker, GitHub, Mac環境",
     demo: "",
     github: "",
-    images: ["/img/marketing1.png", "/img/marketing2.png"],
+    images: [],
   },
 ];
 
@@ -616,10 +805,15 @@ function tagClass(tag) {
     "Tailwind CSS": "bg-cyan-100 text-cyan-800",
     TypeScript: "bg-blue-100 text-blue-800",
     DynamoDB: "bg-yellow-100 text-yellow-800",
-    Mac環境: "bg-gray-100 text-gray-700",
+    JavaScript: "bg-gray-100 text-gray-700",
+    PHP: "bg-purple-100 text-purple-800",
   };
   return `text-xs px-3 py-1 rounded-full font-medium ${
     colorMap[tag] || "bg-gray-100 text-gray-800"
   }`;
+}
+function getImagePath(path) {
+  if (!path) return "";
+  return (baseURL.endsWith("/") ? baseURL.slice(0, -1) : baseURL) + path;
 }
 </script>
