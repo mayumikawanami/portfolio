@@ -4,28 +4,61 @@
     <nav
       class="fixed top-0 w-full bg-white/90 backdrop-blur-sm border-b border-gray-100 z-50"
     >
-      <div class="max-w-7xl text-xl mx-auto px-6 py-4">
-        <ul class="flex justify-end space-x-8">
+      <div
+        class="max-w-7xl text-xl mx-auto px-4 sm:px-6 sm:px-8 py-4 flex items-center justify-between"
+      >
+        <!-- ロゴやタイトル（必要なら追加） -->
+        <div class="flex items-center">
+          <!-- ここにロゴやサイト名を入れてもOK -->
+        </div>
+        <!-- ハンバーガーメニュー（モバイルのみ表示） -->
+        <button
+          class="sm:hidden flex items-center px-3 py-2 border rounded text-gray-600 border-gray-300 hover:text-gray-900 hover:border-gray-400 focus:outline-none"
+          @click="navOpen = !navOpen"
+          aria-label="メニューを開く"
+        >
+          <svg
+            class="h-6 w-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+        <!-- ナビゲーションリスト -->
+        <ul class="hidden sm:flex justify-end space-x-8 text-base font-medium">
           <li>
             <a href="#hero" class="text-gray-600 hover:text-gray-900 transition"
               >Top</a
             >
           </li>
-
-          <a
-            href="#profile"
-            class="text-gray-600 hover:text-gray-900 transition"
-            >Profile</a
-          >
-
-          <a href="#works" class="text-gray-600 hover:text-gray-900 transition"
-            >Works</a
-          >
-
-          <a href="#skills" class="text-gray-600 hover:text-gray-900 transition"
-            >Skills</a
-          >
-
+          <li>
+            <a
+              href="#profile"
+              class="text-gray-600 hover:text-gray-900 transition"
+              >Profile</a
+            >
+          </li>
+          <li>
+            <a
+              href="#works"
+              class="text-gray-600 hover:text-gray-900 transition"
+              >Works</a
+            >
+          </li>
+          <li>
+            <a
+              href="#skills"
+              class="text-gray-600 hover:text-gray-900 transition"
+              >Skills</a
+            >
+          </li>
           <li>
             <a
               href="#contact"
@@ -35,6 +68,56 @@
           </li>
         </ul>
       </div>
+      <!-- モバイル用メニュー -->
+      <transition name="fade">
+        <div
+          v-if="navOpen"
+          class="md:hidden bg-white/95 border-t border-gray-100 px-4 pb-4 pt-2 shadow z-50"
+        >
+          <ul class="flex flex-col space-y-2 text-base font-medium">
+            <li>
+              <a
+                href="#hero"
+                class="block text-gray-600 hover:text-gray-900 transition"
+                @click="navOpen = false"
+                >Top</a
+              >
+            </li>
+            <li>
+              <a
+                href="#profile"
+                class="block text-gray-600 hover:text-gray-900 transition"
+                @click="navOpen = false"
+                >Profile</a
+              >
+            </li>
+            <li>
+              <a
+                href="#works"
+                class="block text-gray-600 hover:text-gray-900 transition"
+                @click="navOpen = false"
+                >Works</a
+              >
+            </li>
+            <li>
+              <a
+                href="#skills"
+                class="block text-gray-600 hover:text-gray-900 transition"
+                @click="navOpen = false"
+                >Skills</a
+              >
+            </li>
+            <li>
+              <a
+                href="#contact"
+                class="block text-gray-600 hover:text-gray-900 transition"
+                @click="navOpen = false"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+      </transition>
     </nav>
 
     <!-- Hero セクション -->
@@ -46,9 +129,7 @@
         <h1 class="text-6xl font-bold text-gray-900 mb-6 tracking-tight">
           Kawanami Mayumi's portfolio
         </h1>
-        <p class="text-xl text-gray-600 mb-8 leading-relaxed">
-          Webエンジニア / フリーランス開発者
-        </p>
+        <p class="text-3xl text-gray-600 mb-8 leading-relaxed">Web Engineer</p>
         <a
           href="#profile"
           class="inline-flex items-center px-8 py-4 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
@@ -76,28 +157,40 @@
       id="profile"
       class="bg-gradient-to-br from-gray-50 to-white min-h-screen flex items-center justify-center"
     >
-      <div class="max-w-5xl mx-auto px-6">
+      <div class="max-w-5xl mx-auto px-4 sm:px-8 md:px-12 lg:px-20">
         <div class="text-center mb-16">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Profile</h2>
           <div class="w-24 h-1 bg-gray-900 mx-auto"></div>
         </div>
         <div class="grid md:grid-cols-1 gap-16 items-start">
-
           <div>
             <h3 class="text-xl font-semibold text-gray-900 mb-6 text-center">
               自己紹介
             </h3>
-            <div class="text-xl font-light">
-              <p class="text-gray-600 leading-relaxed mb-5">
+            <div class="text-xl font-light flex flex-col items-center">
+              <img
+                src="/images/my-avatar.png"
+                alt="My Avatar"
+                class="w-32 h-32 md:w-40 md:h-40 rounded-full mb-6 shadow-lg object-cover"
+              />
+              <p
+                class="text-gray-600 leading-relaxed mb-5 text-base md:text-lg lg:text-xl"
+              >
                 はじめまして、川南真弓と申します。
               </p>
-              <p class="text-gray-600 leading-relaxed mb-5">
+              <p
+                class="text-gray-600 leading-relaxed mb-5 text-base md:text-lg lg:text-xl"
+              >
                 異業種で約20年の社会人経験を経て、「ものづくり」への興味からWebアプリ開発を学び始め、現在は2年目になります。
               </p>
-              <p class="text-gray-600 leading-relaxed mb-5">
+              <p
+                class="text-gray-600 leading-relaxed mb-5 text-base md:text-lg lg:text-xl"
+              >
                 個人開発ではLaravelやNuxt.jsを中心に予約アプリや診断ツールを制作し、チーム開発ではInstagram連携ツールのUIや機能の改修を担当しました。
               </p>
-              <p class="text-gray-600 leading-relaxed mb-5">
+              <p
+                class="text-gray-600 leading-relaxed mb-5 text-base md:text-lg lg:text-xl"
+              >
                 技術だけでなく、丁寧なやり取りや責任感を大切にしながら、信頼される開発者を目指しています。
               </p>
             </div>
@@ -107,20 +200,22 @@
     </section>
 
     <section id="works" class="py-24 bg-gray-50">
-      <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="text-center mb-10 md:mb-16">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Works</h2>
           <div class="w-24 h-1 bg-gray-900 mx-auto"></div>
         </div>
         <div class="mb-16">
-          <div class="grid md:grid-cols-3 gap-8">
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8"
+          >
             <div
               v-for="(work, i) in works"
               :key="work.title"
               class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-all duration-300 flex flex-col items-center"
             >
               <div
-                class="h-48 w-full flex items-center justify-center mb-6 overflow-hidden rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100"
+                class="h-40 w-full sm:h-48 md:h-56 flex items-center justify-center mb-4 md:mb-6 overflow-hidden rounded-lg bg-gradient-to-br from-blue-50 to-indigo-100"
               >
                 <img
                   :src="
@@ -130,14 +225,21 @@
                   alt="work image"
                 />
               </div>
-              <h4 class="text-xl font-semibold text-gray-900 mb-6 text-center">
+              <span
+                class="text-xs bg-gray-100 text-gray-700 rounded px-2 py-1 mb-2 block md:inline-block text-center"
+              >
+                {{ work.type }}
+              </span>
+              <h4
+                class="text-lg md:text-xl font-semibold text-gray-900 mb-4 md:mb-6 text-center break-words"
+              >
                 {{ work.title }}
               </h4>
               <button
                 onmouseover="this.style.backgroundColor='rgb(102, 180, 164)'"
                 onmouseout="this.style.backgroundColor='rgb(121, 198, 182)'"
                 style="background-color: rgb(121, 198, 182)"
-                class="px-6 py-2 text-white rounded-full shadow transition font-semibold flex items-center gap-2 cursor-pointer"
+                class="px-4 py-2 md:px-6 md:py-2 text-sm md:text-base text-white rounded-full shadow transition font-semibold flex items-center gap-2 cursor-pointer w-full md:w-auto justify-center"
                 @click="openModal(i)"
               >
                 <svg
@@ -158,7 +260,6 @@
             </div>
           </div>
         </div>
-        <!-- ...チーム開発セクションは省略 or 同様に対応可... -->
       </div>
 
       <!-- モーダル -->
@@ -248,7 +349,7 @@
                 >
               </div>
             </div>
-            <!-- 右カラム：画像サムネイル＋メイン画像 -->
+
             <div class="md:w-3/5">
               <div class="flex flex-wrap gap-2 mb-4">
                 <img
@@ -269,24 +370,27 @@
     </section>
 
     <section id="skills" class="py-24 bg-white">
-      <div class="max-w-4xl mx-auto px-6">
-        <div class="text-center mb-16">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+        <div class="text-center mb-10 md:mb-16">
           <h2 class="text-4xl font-bold text-gray-900 mb-4">Skills</h2>
           <div class="w-24 h-1 bg-gray-900 mx-auto"></div>
         </div>
-        <p class="text-gray-600 mb-10 text-xl font-light leading-loose">
+        <p
+          class="text-gray-600 mb-8 md:mb-10 mx-2 md:mx-14 text-base md:text-xl font-light leading-loose"
+        >
           各スキルは、個人開発や小規模プロジェクトでの活用経験があります。
           基本的な実装や修正対応が可能で、今後は実務経験を通じて応用力をさらに高めていきたいと考えています。
         </p>
-        <div class="grid md:grid-cols-1 gap-16 items-center">
+        <div class="grid grid-cols-1 gap-10 md:gap-16 items-center">
           <div>
-            <div class="space-y-8">
-
-              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
-                <h3 class="text-xl text-gray-800 mb-2 text-center">
+            <div class="space-y-6 md:space-y-8">
+              <div
+                class="border-3 border-gray-300 rounded-lg px-4 md:px-15 py-6 shadow-sm bg-white"
+              >
+                <h3 class="text-lg md:text-xl text-gray-800 mb-2 text-center">
                   フロントエンド
                 </h3>
-                <div class="space-y-4">
+                <div class="space-y-3 md:space-y-4">
                   <!-- HTML / CSS -->
                   <div class="flex justify-between items-center">
                     <span class="text-gray-700">HTML / CSS</span>
@@ -356,9 +460,25 @@
                     </div>
                   </div>
 
-                  <!-- Nuxt -->
                   <div class="flex justify-between items-center">
-                    <span class="text-gray-700">Nuxt</span>
+                    <span class="text-gray-700">Vue.js</span>
+                    <div class="flex space-x-1">
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div
+                        class="w-4 h-4 rounded-sm"
+                        style="background-color: rgb(121, 198, 182)"
+                      ></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                      <div class="w-4 h-4 bg-gray-200 rounded-sm"></div>
+                    </div>
+                  </div>
+
+                  <div class="flex justify-between items-center">
+                    <span class="text-gray-700">Nuxt.js</span>
                     <div class="flex space-x-1">
                       <div
                         class="w-4 h-4 rounded-sm"
@@ -376,8 +496,9 @@
                 </div>
               </div>
 
-
-              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
+              <div
+                class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white"
+              >
                 <h3 class="text-xl text-gray-800 mb-2 text-center">
                   バックエンド
                 </h3>
@@ -447,7 +568,9 @@
                 </div>
               </div>
 
-              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
+              <div
+                class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white"
+              >
                 <h3 class="text-xl text-gray-800 mb-2 text-center">
                   インフラ・データベース
                 </h3>
@@ -505,7 +628,9 @@
                 </div>
               </div>
 
-              <div class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white">
+              <div
+                class="border-3 border-gray-300 rounded-lg px-15 py-6 shadow-sm bg-white"
+              >
                 <h3 class="text-xl text-gray-800 mb-2 text-center">
                   開発ツール
                 </h3>
@@ -604,14 +729,14 @@
         <p class="text-lg text-gray-600 mb-8">
           ご連絡は
           <a
-            href="mailto:your.email@example.com"
+            href="test@gmail.com"
             class="text-gray-900 font-medium underline hover:text-gray-600 transition"
             >メール</a
           >
           までお気軽にどうぞ
         </p>
         <div class="flex justify-center space-x-6">
-          <a
+          <!-- <a
             href="https://github.com/"
             target="_blank"
             class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white hover:bg-gray-800 transition"
@@ -632,9 +757,9 @@
                 d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"
               />
             </svg>
-          </a>
+          </a> -->
           <a
-            href="mailto:your.email@example.com"
+            href="mailto:test@gmail.com"
             class="w-12 h-12 bg-gray-900 rounded-full flex items-center justify-center text-white hover:bg-gray-800 transition"
           >
             <svg
@@ -669,32 +794,28 @@ const config = useRuntimeConfig();
 const baseURL = config.public.app.baseURL;
 const works = [
   {
+    type: "個人開発",
     title: "ポートフォリオサイト",
     mainImg: ["/images/portfolio1.png"],
     detail:
-      "こちらのポートフォリオサイトです。Nuxt 3とTailwind CSSを用いて制作しました。\n\n" +
-      "各制作物を見やすく整理し、技術スタックや実装内容を視覚的に伝える構成にしています。ソースコードにもこだわり、読みやすさや再利用性を意識した設計・スタイルを心がけました。\n\n" +
-      "デザインには UI/UX を意識し、レスポンシブ対応や構造のわかりやすさ、Tailwind CSS を活用したスタイリングで「シンプルかつスタイリッシュ」な印象を目指しました。",
+      "こちらのポートフォリオサイトです。Nuxt 3とTailwind CSSを使って制作しました。\n\n" +
+      "自分の制作物やスキルがわかりやすく伝わるように、シンプルな構成を意識しました。初めてのポートフォリオ制作だったため、Nuxt 3の基本的な構造やTailwind CSSでのレイアウト調整など、一つ一つ学びながら実装しました。\n\n" +
+      "特に、見やすさやスマホ対応を意識しながら、自分らしさが出せるようなデザインを心がけました。まだ改善点もありますが、これまでの学びの成果をまとめたものになっています。",
     tags: ["Nuxt 3", "Tailwind CSS", "TypeScript", "GitHub"],
     techs: "Nuxt 3, Tailwind CSS, TypeScript, GitHub",
-    demo: "https://your-portfolio.vercel.app",
-    github: "https://github.com/yourname/portfolio",
+    demo: "",
+    github: "",
     images: ["/images/portfolio1.png"],
   },
   {
+    type: "個人開発",
     title: "食事診断ツール",
     mainImg: ["/images/meal1.png"],
     detail:
       "子どもの食事傾向を可視化し、マーケティング分析に活用するためのWeb診断ツールを個人開発しました。\n\n" +
       "アンケート形式で回答を取得し、スコア計算・レーダーチャート表示・Googleフォームへの自動送信・回答履歴の保存までを一連の流れで実装。\n\n" +
-      "【担当内容】\n" +
-      "- Nuxt.js による質問設計とページネーション実装\n" +
-      "- レーダーチャートによる診断結果の可視化\n" +
-      "- GAS を用いた Google フォーム自動送信\n" +
-      "- Firebase Firestore へのログ保存\n" +
-      "- レスポンシブ対応の UI 設計\n" +
-      "- 要件整理から納品まで一貫対応、仕様書とマニュアルも作成\n",
-    tags: ["Nuxt.js","JavaScript", "GAS", "Firebase", "GitHub"],
+      "\n",
+    tags: ["Nuxt.js", "JavaScript", "GAS", "Firebase", "GitHub"],
     techs: "Nuxt.js, JavaScript,GAS, Firebase, GitHub",
     demo: "https://nutrition-check.online/DietarySurveyPlusTestTest",
     github: "",
@@ -706,13 +827,14 @@ const works = [
     ],
   },
   {
+    type: "個人開発",
     title: "飲食店予約アプリ",
     mainImg: ["/images/reserve1.png"],
     detail:
       "LaravelとMySQLを用いて、飲食店の検索〜予約〜口コミ投稿までを一括で管理できるアプリを個人開発しました。\n\n" +
       "ユーザー・店舗・管理者の3権限に対応し、それぞれの立場に応じた画面・機能を実装しています。予約登録・QRコード確認・口コミ投稿・CSVインポート・決済処理など、実用性を意識した設計に取り組みました。\n\n" +
       "Docker上で環境構築を行い、AWS（EC2/S3）を利用して本番デプロイも経験。Laravelの認証・リレーション・Bladeテンプレートの活用を通じて、Webアプリ開発の全体像を実践的に学びました。",
-    tags: ["PHP","Laravel", "MySQL", "Docker", "AWS", "GitHub"],
+    tags: ["PHP", "Laravel", "MySQL", "Docker", "AWS", "GitHub"],
     techs: "PHP,Laravel, MySQL, Docker, AWS, GitHub",
     demo: "https://mayumi-k.main.jp/restaurant/",
     github: "",
@@ -727,13 +849,14 @@ const works = [
     ],
   },
   {
+    type: "個人開発",
     title: "勤怠管理アプリ",
     mainImg: ["/images/attendance2.png"],
     detail:
       "LaravelとMySQLを用いて、勤務開始・終了や休憩時間を記録・集計できる勤怠管理アプリを個人開発しました。\n\n" +
       "会員登録・ログイン・メール認証を備えたユーザー認証機能や、勤怠データの一覧表示・ページネーションにも対応しています。\n\n" +
       "Dockerを使って開発環境を構築し、保守性を意識したMVC設計やバリデーションの実装など、業務向けWebアプリ開発の基本を習得しました。",
-    tags: ["PHP","Laravel", "MySQL", "Docker", "GitHub"],
+    tags: ["PHP", "Laravel", "MySQL", "Docker", "GitHub"],
     techs: "PHP,Laravel, MySQL, Docker, GitHub",
     demo: "https://mayumi-k.main.jp/kintai/",
     github: "",
@@ -746,12 +869,14 @@ const works = [
     ],
   },
   {
+    type: "チーム開発",
     title: "Instagramチャットボットツール",
-    emoji: "🤖",
+    mainImg: ["/images/team.png"],
     detail:
-      "Instagramチャットボットツールの詳細説明。NuxtとLaravelでのチーム開発で、キャンペーン管理やダッシュボードUIの改修を担当しました。",
+      "NuxtとLaravelでのチーム開発に参加。キャンペーン管理やダッシュボードUIの改修を担当しました。",
     tags: [
       "Nuxt.js",
+      "PHP",
       "Laravel",
       "Tailwind CSS",
       "TypeScript",
@@ -763,24 +888,26 @@ const works = [
       "Nuxt.js, Laravel, PHP,Tailwind CSS, TypeScript, DynamoDB, Docker, GitHub",
     demo: "",
     github: "",
-    images: [],
+    images: ["/images/team.png"],
   },
   {
+    type: "チーム開発",
     title: "マーケティング管理システム",
-    emoji: "📊",
+    mainImg: ["/images/team.png"],
     detail:
-      "不動産会社のマーケティング管理システムの詳細説明。Laravelでデータ収集・可視化を行い、DB追加や画面表示処理を担当しました。",
-    tags: ["Laravel", "MySQL", "Docker", "GitHub", "Mac環境"],
-    techs: "Laravel, MySQL, Docker, GitHub, Mac環境",
+      "不動産会社のマーケティング管理システムのチーム開発に参加。Laravelでデータ収集・可視化を行い、DB追加や画面表示処理を担当しました。",
+    tags: ["PHP", "Laravel", "MySQL", "Docker", "GitHub", "Mac環境"],
+    techs: "PHP,Laravel, MySQL, Docker, GitHub",
     demo: "",
     github: "",
-    images: [],
+    images: ["/images/team.png"],
   },
 ];
 
 const modalOpen = ref(false);
 const modalIndex = ref(0);
 const mainImage = ref("");
+const navOpen = ref(false);
 
 const openModal = (i) => {
   modalIndex.value = i;
@@ -817,3 +944,14 @@ function getImagePath(path) {
   return (baseURL.endsWith("/") ? baseURL.slice(0, -1) : baseURL) + path;
 }
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
